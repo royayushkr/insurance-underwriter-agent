@@ -180,23 +180,6 @@ export default function App() {
           transform: 'translateZ(0)',
         }}
       />
-      {/* Top gradient fade */}
-      <div
-        className="fixed inset-x-0 top-0 z-0 h-48 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to bottom, var(--color-background), transparent)',
-          transform: 'translateZ(0)',
-        }}
-      />
-      {/* Bottom gradient fade */}
-      <div
-        className="fixed inset-x-0 bottom-0 z-0 h-48 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to top, var(--color-background), transparent)',
-          transform: 'translateZ(0)',
-        }}
-      />
-
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
         <Header />
 
