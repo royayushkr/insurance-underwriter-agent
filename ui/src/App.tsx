@@ -10,7 +10,10 @@ import {
   initialCategoriesState,
 } from "./types";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+// Use the deployed API by default so production never falls back to localhost.
+const API_URL = (
+  import.meta.env.VITE_API_URL || "https://insurance-underwriter-agent-api.vercel.app"
+).replace(/\/$/, "");
 
 export default function App() {
   const [categories, setCategories] = useState<CategoriesState>(
@@ -19,6 +22,7 @@ export default function App() {
   const [isResearching, setIsResearching] = useState(false);
   const [companyName, setCompanyName] = useState("");
   const [hasResults, setHasResults] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const abortRef = useRef<AbortController | null>(null);
 
   const blankCategoryState = () => ({
@@ -35,6 +39,7 @@ export default function App() {
       setIsResearching(true);
       setCompanyName(name);
       setHasResults(false);
+      setErrorMessage("");
 
       abortRef.current?.abort();
       const controller = new AbortController();
@@ -52,7 +57,7 @@ export default function App() {
         });
 
         if (!response.ok) {
-          throw new Error(response.statusText || "Request failed");
+          throw new Error(`Research request failed (${response.status})`);
         }
         if (!response.body) {
           throw new Error("No response body");
@@ -83,7 +88,9 @@ export default function App() {
         }
       } catch (err: any) {
         if (err.name !== "AbortError") {
+          const message = err instanceof Error ? err.message : "Unable to complete research";
           console.error("Stream error:", err);
+          setErrorMessage(`${message}. Check that the backend is running and configured.`);
         }
       } finally {
         setIsResearching(false);
@@ -189,6 +196,11 @@ export default function App() {
             isLoading={isResearching}
             onCancel={handleCancel}
           />
+          {errorMessage && (
+            <div className="mt-3 rounded-xl border border-red-300 bg-white/90 px-4 py-3 text-sm text-red-700 shadow-sm">
+              {errorMessage}
+            </div>
+          )}
         </div>
 
         <AnimatePresence mode="wait">
