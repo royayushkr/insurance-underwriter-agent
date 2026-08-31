@@ -188,8 +188,6 @@ The frontend and backend are deployed as separate Vercel projects from this repo
 - Background jobs, retries, rate-limit handling, and observability for production workloads.
 - Secure production deployment with managed secrets, authentication, and encrypted storage.
 
-[![Demo Video](https://img.youtube.com/vi/Hhpvn4iYxGM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Hhpvn4iYxGM)
-
 ## Getting Started
 
 ### 1. Clone and configure environment

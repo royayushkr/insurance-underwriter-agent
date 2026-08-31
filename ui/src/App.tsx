@@ -175,7 +175,7 @@ export default function App() {
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/underwriter-grid-background.png)',
-          opacity: 1,
+          opacity: 0.28,
           willChange: 'transform',
           transform: 'translateZ(0)',
         }}
