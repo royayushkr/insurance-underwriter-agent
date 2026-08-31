@@ -42,7 +42,7 @@ function StatusDot({ status }: { status: string }) {
     return <AlertCircle className="w-3 h-3 text-red-500" />;
   if (status === "in_progress")
     return <Loader2 className="w-3 h-3 text-accent-500 animate-spin" />;
-  return <div className="w-1.5 h-1.5 rounded-full bg-ink-700" />;
+  return <div className="w-1.5 h-1.5 rounded-full bg-white/75" />;
 }
 
 export default function ResultsDashboard({ categories, companyName }: Props) {
@@ -90,8 +90,8 @@ export default function ResultsDashboard({ categories, companyName }: Props) {
             />
           );
         })()}
-        <h2 className="font-display text-xl text-ink-100">{companyName}</h2>
-        <span className="text-xs text-ink-500 font-mono">
+        <h2 className="font-display text-xl text-white">{companyName}</h2>
+        <span className="text-xs text-white/80 font-mono">
           {completedCount}/5 categories
         </span>
       </div>
@@ -116,8 +116,8 @@ export default function ResultsDashboard({ categories, companyName }: Props) {
                   isActive
                     ? "glass text-ink-100 -mb-px !border-b-transparent !rounded-b-none"
                     : isReady
-                    ? "text-ink-400 hover:text-ink-200 hover:bg-white/20"
-                    : "text-ink-600 hover:text-ink-400 hover:bg-white/10"
+                    ? "text-white hover:text-white hover:bg-white/20"
+                    : "text-white/75 hover:text-white hover:bg-white/10"
                 }
               `}
             >
