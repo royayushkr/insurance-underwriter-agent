@@ -2,6 +2,8 @@
 
 Insurance Underwriter Agent is an AI-powered underwriting research workspace built with [Tavily](https://tavily.com). Enter a company name and optional location to generate a source-backed company report in real time.
 
+Live frontend: [insurance-underwriter-agent.vercel.app](https://insurance-underwriter-agent.vercel.app)
+
 The application is designed for an underwriter's first-pass diligence workflow. It gathers public information across company profile, adverse news, risk, products and services, and claims history, then presents the results in a streamed dashboard with source links.
 
 ## How it works
@@ -27,6 +29,8 @@ Live underwriting dashboard
 3. Progress updates, discovered sources, and completed category data are forwarded as Server-Sent Events (SSE).
 4. When Company Information identifies executives, a supplemental LinkedIn lookup runs for matching profile URLs.
 5. The dashboard updates as results arrive and keeps the supporting sources available for review.
+
+When no Tavily API key is configured, the backend runs in safe demo mode with clearly labeled placeholder results and makes no external API calls or charges.
 
 This tool supports research and review; it does not make an automated underwriting decision.
 
