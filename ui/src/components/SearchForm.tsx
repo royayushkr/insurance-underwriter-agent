@@ -30,26 +30,26 @@ export default function SearchForm({ onSearch, isLoading, onCancel }: Props) {
       <div className="flex flex-col sm:flex-row gap-3">
         {/* Company name input */}
         <div className="relative flex-1">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-600" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#4b4b61]" />
           <input
             type="text"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             placeholder="Company name"
-            className="w-full pl-11 pr-4 py-3.5 glass-input rounded-xl text-ink-100 placeholder:text-ink-600 font-body text-[15px] focus:outline-none focus:border-accent-400 focus:ring-1 focus:ring-accent-400/30 transition-all"
+            className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white text-[#1a1a2e] placeholder:text-[#66667a] border border-[#b8b8c8] shadow-sm font-body text-[15px] focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 transition-all"
             disabled={isLoading}
           />
         </div>
 
         {/* Location input */}
         <div className="relative sm:w-64">
-          <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-600" />
+          <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#4b4b61]" />
           <input
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Location (optional)"
-            className="w-full pl-11 pr-4 py-3.5 glass-input rounded-xl text-ink-100 placeholder:text-ink-600 font-body text-[15px] focus:outline-none focus:border-accent-400 focus:ring-1 focus:ring-accent-400/30 transition-all"
+            className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white text-[#1a1a2e] placeholder:text-[#66667a] border border-[#b8b8c8] shadow-sm font-body text-[15px] focus:outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-400/40 transition-all"
             disabled={isLoading}
           />
         </div>
@@ -59,7 +59,7 @@ export default function SearchForm({ onSearch, isLoading, onCancel }: Props) {
           <button
             type="button"
             onClick={onCancel}
-            className="px-6 py-3.5 glass-button text-ink-300 rounded-xl font-medium text-[15px] transition-all flex items-center gap-2 shrink-0"
+            className="px-6 py-3.5 bg-white text-[#1a1a2e] border border-[#b8b8c8] rounded-xl font-medium text-[15px] shadow-sm transition-all flex items-center gap-2 shrink-0"
           >
             <X className="w-4 h-4" />
             Cancel
@@ -70,8 +70,8 @@ export default function SearchForm({ onSearch, isLoading, onCancel }: Props) {
             disabled={!company.trim()}
             className={`px-8 py-3.5 rounded-xl font-semibold text-[15px] transition-all duration-300 shrink-0 ${
               company.trim()
-                ? "glass-button-active text-ink-200"
-                : "glass-input text-ink-600 cursor-default"
+                ? "bg-[#b57a86] text-white border border-[#8f5966] shadow-md hover:bg-[#a06472]"
+                : "bg-[#e5e7eb] text-[#66667a] border border-[#b8b8c8] cursor-not-allowed"
             }`}
           >
             Research
