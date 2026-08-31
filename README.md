@@ -1,6 +1,34 @@
 # Insurance Underwriter Agent
 
-An AI-powered insurance underwriting research tool built with [Tavily](https://tavily.com). Enter a company name and get a comprehensive underwriting report streamed in real time — covering company background, adverse news, risk assessment, products & services, and claims history.
+Insurance Underwriter Agent is an AI-powered underwriting research workspace built with [Tavily](https://tavily.com). Enter a company name and optional location to generate a source-backed company report in real time.
+
+The application is designed for an underwriter's first-pass diligence workflow. It gathers public information across company profile, adverse news, risk, products and services, and claims history, then presents the results in a streamed dashboard with source links.
+
+## How it works
+
+```text
+Browser (React + Vite)
+        │  POST /api/underwrite/stream
+        ▼
+FastAPI backend
+        │  starts five parallel research tasks
+        ▼
+Tavily Research API
+        │  streams SSE events and sources
+        ▼
+Backend orchestrator
+        │  tags, aggregates, and forwards events
+        ▼
+Live underwriting dashboard
+```
+
+1. The React frontend sends a company and optional location to the FastAPI backend.
+2. The backend runs five research categories in parallel using Tavily's streaming Research API.
+3. Progress updates, discovered sources, and completed category data are forwarded as Server-Sent Events (SSE).
+4. When Company Information identifies executives, a supplemental LinkedIn lookup runs for matching profile URLs.
+5. The dashboard updates as results arrive and keeps the supporting sources available for review.
+
+This tool supports research and review; it does not make an automated underwriting decision.
 
 [![Demo Video](https://img.youtube.com/vi/Hhpvn4iYxGM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Hhpvn4iYxGM)
 
