@@ -174,8 +174,8 @@ export default function App() {
       <div
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'url(/tavily_landscapes_edited_11.webp)',
-          opacity: 0.7,
+          backgroundImage: 'url(/underwriter-grid-background.png)',
+          opacity: 1,
           willChange: 'transform',
           transform: 'translateZ(0)',
         }}
