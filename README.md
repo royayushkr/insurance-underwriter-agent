@@ -179,10 +179,6 @@ npm run preview
 - Background jobs, retries, rate-limit handling, and observability for production workloads.
 - Secure production deployment with managed secrets, authentication, and encrypted storage.
 
-## Disclaimer
-
-This project is a research assistant and demonstration tool. Results may be incomplete, outdated, or incorrect. Verify material facts with authoritative sources and apply appropriate underwriting policies before making decisions.
-
 [![Demo Video](https://img.youtube.com/vi/Hhpvn4iYxGM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Hhpvn4iYxGM)
 
 ## Getting Started
