@@ -64,17 +64,15 @@ body {
 
 /* Liquid glass effect */
 .glass {
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: #ffffff;
+  border: 1px solid #b8b8c8;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   will-change: transform;
 }
 
 .glass-subtle {
-  background: rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: #ffffff;
+  border: 1px solid #c4c4d0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 

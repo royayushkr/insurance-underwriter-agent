@@ -23,6 +23,7 @@ export default function App() {
   const [companyName, setCompanyName] = useState("");
   const [hasResults, setHasResults] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDemoMode, setIsDemoMode] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
   const blankCategoryState = () => ({
@@ -40,6 +41,7 @@ export default function App() {
       setCompanyName(name);
       setHasResults(false);
       setErrorMessage("");
+      setIsDemoMode(false);
 
       abortRef.current?.abort();
       const controller = new AbortController();
@@ -104,7 +106,7 @@ export default function App() {
 
     switch (event.type) {
       case "start":
-        // mark all categories as pending (already default)
+        setIsDemoMode(event.mode === "demo");
         break;
 
       case "progress":
@@ -199,6 +201,11 @@ export default function App() {
           {errorMessage && (
             <div className="mt-3 rounded-xl border border-red-300 bg-white/90 px-4 py-3 text-sm text-red-700 shadow-sm">
               {errorMessage}
+            </div>
+          )}
+          {isDemoMode && (
+            <div className="mt-3 rounded-xl border border-amber-300 bg-white px-4 py-3 text-sm text-[#5f4b16] shadow-sm">
+              Demo mode is active: the Tavily API key was removed, so no live research or API charges will occur.
             </div>
           )}
         </div>
