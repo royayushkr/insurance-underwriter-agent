@@ -166,6 +166,15 @@ npm run build
 npm run preview
 ```
 
+## Deployment references
+
+The current Vercel deployments are available here for reference:
+
+- Frontend: [ui-pied-five.vercel.app](https://ui-pied-five.vercel.app)
+- Backend health endpoint: [insurance-demo-silk.vercel.app](https://insurance-demo-silk.vercel.app)
+
+The frontend and backend are deployed as separate Vercel projects from this repository. The frontend project uses `ui` as its root directory and the backend project uses the repository root. No Tavily API key is stored in the repository or configured in these deployments.
+
 ## Future additions
 
 - Persistent research history and downloadable underwriting reports.
