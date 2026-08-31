@@ -30,6 +30,159 @@ Live underwriting dashboard
 
 This tool supports research and review; it does not make an automated underwriting decision.
 
+## Problem statement
+
+Commercial underwriters often need to assemble an initial company view from many public sources before they can assess exposure, request additional information, or decide which risks deserve deeper review. That process is repetitive, slow, and difficult to audit when research notes, sources, and conclusions are scattered across browser tabs and documents.
+
+Insurance Underwriter Agent provides a single research workspace for that first-pass diligence. It turns a company name and optional location into a structured, source-linked report while keeping the human underwriter responsible for interpretation and the final decision.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    U[Underwriter] --> UI[React + Vite dashboard]
+    UI -->|POST /api/underwrite/stream| API[FastAPI backend]
+    API --> ORCH[Async research orchestrator]
+    ORCH --> C1[Company information]
+    ORCH --> C2[Adverse news]
+    ORCH --> C3[Risk assessment]
+    ORCH --> C4[Products and services]
+    ORCH --> C5[Claims history]
+    C1 --> T[Tavily Research API]
+    C2 --> T
+    C3 --> T
+    C4 --> T
+    C5 --> T
+    T -->|streamed events and sources| ORCH
+    ORCH -->|SSE progress, data, and completion events| UI
+```
+
+## Research sequence
+
+```mermaid
+sequenceDiagram
+    actor Underwriter
+    participant UI as React UI
+    participant API as FastAPI
+    participant T as Tavily Research
+
+    Underwriter->>UI: Enter company and location
+    UI->>API: POST /api/underwrite/stream
+    API-->>UI: start event
+    par Five parallel research streams
+        API->>T: Company information request
+        API->>T: Adverse news request
+        API->>T: Risk assessment request
+        API->>T: Products and services request
+        API->>T: Claims history request
+    end
+    T-->>API: Progress, source, and content events
+    API-->>UI: Categorized SSE events
+    API->>T: Executive LinkedIn enrichment
+    T-->>API: LinkedIn profile results
+    API-->>UI: category_complete and complete events
+    UI-->>Underwriter: Live source-backed dashboard
+```
+
+## APIs used
+
+### Tavily Research API
+
+The backend calls Tavily's Research endpoint at `https://api.tavily.com/research` with:
+
+- `input`: the category-specific research question
+- `model`: `mini`
+- `output_schema`: structured fields for the category
+- `stream`: `true`, so progress and results arrive incrementally
+
+The Tavily API key is read from `TAVILY_API_KEY` in the root `.env` file. Never commit `.env`; it is excluded by `.gitignore`.
+
+### Application API
+
+`GET /` — backend health check.
+
+`POST /api/underwrite/stream` — starts a streamed underwriting research session.
+
+Request body:
+
+```json
+{
+  "company_name": "Acme Corp",
+  "location": "New York, NY"
+}
+```
+
+The response uses Server-Sent Events. Events include `start`, `progress`, `sources_found`, `category_complete`, `error`, and `complete`.
+
+## Local setup
+
+### Prerequisites
+
+- Python 3.10 or newer
+- Node.js 18 or newer
+- A Tavily API key
+
+### Backend
+
+From the repository root:
+
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.sample .env
+```
+
+Add the key to `.env`:
+
+```text
+TAVILY_API_KEY=tvly-your-key-here
+```
+
+Start the API:
+
+```bash
+python -m backend.app
+```
+
+The backend runs on `http://localhost:8000`.
+
+### Frontend
+
+In a second terminal:
+
+```bash
+cd ui
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173`.
+
+For a production build:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Future additions
+
+- Persistent research history and downloadable underwriting reports.
+- User accounts, team workspaces, permissions, and audit trails.
+- Configurable research templates by line of business and industry.
+- Additional source connectors such as company filings, sanctions lists, court records, OSHA, and government data.
+- Citation-level evidence mapping from each conclusion to source passages.
+- Human review workflows with notes, approvals, and escalation queues.
+- Confidence scoring, source freshness checks, and contradiction detection.
+- Exposure-specific analysis for cyber, D&O, product liability, workers compensation, property, and commercial auto.
+- Background jobs, retries, rate-limit handling, and observability for production workloads.
+- Secure production deployment with managed secrets, authentication, and encrypted storage.
+
+## Disclaimer
+
+This project is a research assistant and demonstration tool. Results may be incomplete, outdated, or incorrect. Verify material facts with authoritative sources and apply appropriate underwriting policies before making decisions.
+
 [![Demo Video](https://img.youtube.com/vi/Hhpvn4iYxGM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Hhpvn4iYxGM)
 
 ## Getting Started
