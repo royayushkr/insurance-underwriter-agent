@@ -1,0 +1,11 @@
+# Never upload local credentials to Vercel.
+.env
+.env.*
+!.env.sample
+
+# Local development and generated files.
+venv/
+node_modules/
+__pycache__/
+ui/dist/
+.git/
